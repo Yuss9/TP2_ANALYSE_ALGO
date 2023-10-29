@@ -1,7 +1,7 @@
 
 # Vérification
 
-** Ficher : verificateur.py dans le dossier src **
+**Ficher : verificateur.py dans le dossier src**
 
 ## Description du problème :
 
@@ -24,7 +24,7 @@ Si vous avez d'autres questions ou si vous souhaitez une analyse plus approfondi
 
 # SolvBackTracking
 
-** Ficher : SolvBackTracking.py dans le dossier src **
+**Ficher : SolvBackTracking.py dans le dossier src**
 
 ## Description du problème :
 
@@ -48,7 +48,7 @@ Le code fourni n'est pas un algorithme aléatoire, mais un algorithme de backtra
 
 # SolvRandom
 
-** Ficher : SolvRandom.py dans le dossier src **
+**Ficher : SolvRandom.py dans le dossier src**
 
 
 ## Description du problème :
@@ -74,7 +74,7 @@ L'algorithme aléatoire ne garantit pas toujours de trouver une solution, car il
 
 # SolvLawler
 
-** Ficher : SolvLawler.py dans le dossier src **
+**Ficher : SolvLawler.py dans le dossier src**
 
 
 ## Description du problème :
