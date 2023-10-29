@@ -8,7 +8,11 @@ Les algos du TP3 est dans dossier src dans le fichier solveClique.py.
 
 ## IMPORTANT
 ⛔️ Important, nous n'avons pas réussi à mettre en place l'algorithme de Lawler, mais nous avons quand même laissé le code dans le fichier SolvLawler.py
+
+
 ⛔️ Important, nous n'avons pas réussi à mettre en place le dernier algorithme 3Col est NP-complet.
+
+
 ⛔️ Important, nous vous conseillons de lire attentivement la documentation.pdf où nous avons répondu aux différentes questions et de respecter la structure
 
 
