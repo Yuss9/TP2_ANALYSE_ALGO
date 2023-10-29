@@ -44,5 +44,17 @@ Gardez à l'esprit que la performance des algorithmes dépendra de la taille et 
 
 --- 
 
+# Compléxité de l'algorithme de Lawler
 
+La complexité de l'algorithme lawler_solver implémenté dans le code dépend principalement des boucles for imbriquées, des vérifications et de la taille du graphe. Voici une analyse de la complexité de cet algorithme :
+
+Boucle externe (size) : Cette boucle parcourt toutes les tailles d'ensembles possibles, de 2 à len(graph). La complexité de cette boucle est O(N), où N est le nombre de sommets dans le graphe.
+
+Boucle interne (combinations) : Dans cette boucle, toutes les combinaisons de deux sommets sont générées. Le nombre total de combinaisons possibles est C(N, 2), où N est le nombre de sommets. La complexité de cette boucle est O(N^2).
+
+Fonctions is_independent_set et is_bipartite : Ces fonctions parcourent le graphe et effectuent des vérifications. Dans le pire cas, elles parcourent tous les sommets et leurs voisins. La complexité est donc de l'ordre de O(N).
+
+En prenant en compte ces éléments, la complexité totale de l'algorithme est O(N * N^2 * N) = O(N^4). Cela signifie que la complexité de l'algorithme est polynomiale en fonction du nombre de sommets dans le graphe. Plus le graphe est grand, plus l'algorithme sera lent.
+
+Il est important de noter que cette analyse de complexité ne tient pas compte de facteurs constants ou d'optimisations potentielles. La complexité réelle peut être meilleure dans la pratique, mais elle reste exponentielle en fonction de la taille du graphe.
 
