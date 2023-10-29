@@ -1,0 +1,9 @@
+c
+c Random graph with 5 vertices
+c and 4 edges.
+c
+p edge 5 4
+e 0 1
+e 1 2
+e 2 3
+e 3 4

@@ -1,0 +1,9 @@
+c
+c Random graph with 5 vertices.
+c Each edge appears with probability 0.2.
+c
+p edge 5 4
+e 0 1
+e 0 2
+e 0 3
+e 3 4
