@@ -147,8 +147,79 @@ def translate_solution(sol, n):
     return colors
 
 
+def is_valid_3_coloration(graph):
+    # Obtenir la liste des sommets du graphe et leur coloration actuelle
+    vertices = graph.get_vertex()
+    colors = graph.get_colors()
+
+    # Parcourir tous les sommets du graphe
+    for vertex in vertices:
+        # Obtenir la couleur du sommet en cours d'examen
+        vertex_color = colors[vertex]
+
+        # Si le sommet n'est pas encore coloré, la 3-coloration n'est pas valide
+        if vertex_color == "None":
+            return "3C NOT GOOD"
+
+        # Obtenir la liste des voisins du sommet en cours
+        neighbors = vertices[vertex]
+
+        # Parcourir les voisins du sommet
+        for neighbor in neighbors:
+            # Obtenir la couleur du voisin
+            neighbor_color = colors[neighbor]
+
+            # Si le voisin a la même couleur que le sommet en cours, la 3-coloration n'est pas valide
+            if neighbor_color == vertex_color:
+                return "3C NOT GOOD"
+
+    # Si toutes les vérifications sont passées, la 3-coloration est valide
+    return "3C GOOD"
+
+
+def get_independent_set(graph, size, is_verbose):
+    """
+    Trouve un ensemble indépendant de taille donnée dans un graphe.
+
+    :param graph: Le graphe G
+    :param size: La taille de l'ensemble indépendant recherché
+    :param is_verbose: Afficher les informations de débogage si True
+    :return: Un ensemble indépendant de taille donnée ou une liste vide
+    """
+
+    n = len(graph.get_vertex())
+
+    # Création d'une liste de variables pour chaque sommet
+    cnf = CardEnc.equals([i for i in range(1, n + 1)],
+                         bound=size, top_id=n, encoding=EncType.seqcounter)
+
+    # Contraintes : les sommets voisins ne peuvent pas être dans l'ensemble indépendant
+    for u in range(len(graph.vertex)):
+        for v in graph.vertex[u]:
+            cnf.append([-(u + 1), -(v + 1)])
+
+    if is_verbose:
+        print("Entrée pour le SAT solveur")
+        print(cnf)
+
+    solution_sat = solveSAT(cnf)
+
+    if is_verbose:
+        print("Solution pour SAT")
+        print(solution_sat)
+
+    if solution_sat != "UNSAT":
+        solution = [i - 1 for i in solution_sat[:n] if i > 0]
+        for i in range(len(solution)):
+            solution[i] += 1
+    else:
+        solution = []
+
+    return solution
+
+
 #########################################################################
-# solve_3_coloration main
+# first main
 
 """ if __name__ == '__main__':
     if len(sys.argv) < 3:
@@ -178,4 +249,36 @@ def translate_solution(sol, n):
         print(solution)
     else:
         print("Pas de clique de taille " + str(size) + ".")
- """
+"""
+
+###########################################################################
+# second main
+
+if len(sys.argv) < 2:
+    print("usage : python3 solveClique.py <filename> [-v]")
+    exit(1)
+filename = sys.argv[1]
+if len(sys.argv) > 2 and sys.argv[2] in ["-v", "--verbose"]:
+    verbose = True
+else:
+    verbose = False
+
+
+# Récupérer le graphe stocké dans le fichier <filename>
+
+g = Graph(filename)
+solution = solve_3_coloration(g, verbose)
+
+print("Solution pour le problème 3-Coloration :")
+if solution:
+    color = translate_solution(solution, len(g.vertex))
+    print(g.vertex)
+    print(color)
+    print("UPDATING COLOR ......")
+    g.assign_all_color_to_vertex(color)
+    print("######################################################")
+    print(g.get_colors())
+    print("######################################################")
+    print(is_valid_3_coloration(g))
+else:
+    print("Pas de coloration.")
