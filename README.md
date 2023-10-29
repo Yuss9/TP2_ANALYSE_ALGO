@@ -3,8 +3,8 @@
 
 Voici, notre TP2 et TP3 d'analyse d'algorithme.
 
-Les algos du TP2 est dans dossier src dans le fichier algo.py.
-Les algos du TP3 est dans dossier src dans le fichier solveClique.py.
+Les algos du TP2 est dans le dossier src dans le fichier algo.py.
+Les algos du TP3 est dans le dossier src2 dans le fichier solveClique.py.
 
 ## IMPORTANT
 ⛔️ Important, nous n'avons pas réussi à mettre en place l'algorithme de Lawler, mais nous avons quand même laissé le code dans le fichier SolvLawler.py
