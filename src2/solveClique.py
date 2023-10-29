@@ -3,6 +3,7 @@
 import sys
 from pycosat import solve as solveSAT
 from pysat.card import *
+from Graph import Graph
 
 
 def solveClique(g, size, verbose):
@@ -32,7 +33,7 @@ def solveClique(g, size, verbose):
     Supprimer la ligne suivante :
     elle sert juste à ce que ça compile tant que la ligne d'avant n'est pas traitée
     """
-    n = size + 1
+    n = len(g.get_vertex())
 
     """
     Nos variables seront X1,...,Xn
@@ -54,9 +55,13 @@ def solveClique(g, size, verbose):
     on rajoute la contrainte qu'une des extrémités ne doit pas appartenir
     à la clique.
     """
-    # for u in range(1,n+1):
-    # for v in range(1,u):
-    # ???
+
+    for u in range(1, n+1):
+        for v in range(1, u):
+            if v not in g.vertex[u]:
+                # Implement is_edge(u, v) to check if u and v form an edge in the graph.
+                cnf.append([-u, -v])
+                # Add a constraint that one of the endpoints should not belong to the clique.
 
     if verbose:
         print("Entrée pour le SAT solveur")
@@ -82,6 +87,67 @@ def solveClique(g, size, verbose):
         solution = []
     return solution
 
+#########################################################################
+
+
+def solve_3_coloration(graph, is_verbose=False):
+    """
+    Résout le problème de la 3-Coloration pour un graphe donné.
+
+    :param graph: Graphe d'entrée
+    :param is_verbose: Afficher les détails du processus si True
+    :return: Une liste de couleurs attribuées aux sommets ou une liste vide si impossible
+    """
+    n = len(graph.vertex)
+
+    # Affiche le graphe d'entrée si is_verbose est True
+    if is_verbose:
+        print("Graphe d'entrée")
+        print(graph)
+
+    # Crée une liste de clauses pour le problème SAT
+    cnf = CardEnc.equals([i for i in range(1, 3 * n + 1)],
+                         bound=n, top_id=n, encoding=EncType.seqcounter)
+
+    # Ajoute des contraintes pour chaque sommet
+    for i in range(1, n + 1):
+        cnf.append([-i, -(i + n)])
+        cnf.append([-i, -(i + 2 * n)])
+        cnf.append([-(i + n), -(i + 2 * n)])
+
+    # Ajoute des contraintes pour chaque paire de sommets reliés par une arête
+    for u in range(len(graph.vertex)):
+        for v in graph.vertex[u]:
+            cnf.append([-(u + 1), -(v + 1)])
+            cnf.append([-((u + 1) + n), -((v + 1) + n)])
+            cnf.append([-((u + 1) + 2 * n), -((v + 1) + 2 * n)])
+
+    # Affiche l'entrée pour le solveur SAT si is_verbose est True
+    if is_verbose:
+        print("Entrée pour le solveur SAT")
+
+    # Résout le problème SAT
+    solution_sat = solveSAT(cnf)
+
+    # Affiche la solution si is_verbose est True
+    if is_verbose:
+        print("Solution pour SAT")
+        print(solution_sat)
+
+    # Retourne une liste de couleurs attribuées aux sommets ou une liste vide si impossible
+    return [] if solution_sat == "UNSAT" else translate_solution(solution_sat, n)
+
+
+def translate_solution(sol, n):
+    # Traduit la solution SAT en une liste de couleurs pour les sommets
+    colors = [-1] * n
+    for v in sol:
+        if v > 0:
+            colors[(v - 1) % n] = (v - 1) // n
+    return colors
+
+
+#########################################################################
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
@@ -103,10 +169,10 @@ if __name__ == '__main__':
     Récupérer le graphe stocké dans le fichier <filename>
     """
     g = []
-    # g = newGraph(filename)
+    g = Graph(filename)
+    #     solution = solveClique(g, size, verbose)
 
-    solution = solveClique(g, size, verbose)
-
+    solution = solve_3_coloration(g, size, verbose)
     print("Solution pour le problème Clique")
     if solution != []:
         print(solution)
