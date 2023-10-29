@@ -159,3 +159,81 @@ Il est important de noter que cette analyse de complexité ne tient pas compte d
 --- 
 
  ⛔️ Important, nous n'avons pas réussi à mettre en place l'algorithme de Lawler, mais nous avons quand même laissé le code dans le fichier SolvLawler.py
+
+--- 
+
+# TP3 SECTION
+
+# Fonction solve_3_coloration et translate_solution
+
+**Description du Problème :**
+
+Le problème de la 3-Coloration consiste à attribuer une couleur parmi trois couleurs différentes (par exemple, Rouge, Bleu et Vert) à chaque sommet d'un graphe de telle manière que deux sommets adjacents n'aient pas la même couleur. L'objectif est de déterminer s'il existe une telle coloration pour un graphe donné.
+
+**Exemple :**
+
+Considérons un graphe avec 4 sommets et les arêtes suivantes : (1, 2), (2, 3), (3, 4), et (4, 1). Ce graphe est un cycle de 4 sommets. Le problème de la 3-Coloration consiste à déterminer s'il est possible de colorer ces sommets avec trois couleurs de telle sorte que les sommets adjacents n'aient pas la même couleur. La réponse est oui, et une possible 3-coloration de ce graphe serait {1: 'Rouge', 2: 'Bleu', 3: 'Rouge', 4: 'Bleu'}.
+
+**Analyse de la Complexité Temporelle :**
+
+1. **Initialisation (O(1)) :** L'initialisation du nombre de sommets n est en temps constant.
+
+2. **Création des Clauses (O(n)) :** La création des clauses est linéaire par rapport au nombre de sommets. Les trois boucles imbriquées ajoutent des clauses pour chaque sommet, chaque couleur et chaque paire de sommets voisins.
+
+3. **Affichage (O(1)) :** Les affichages du graphe d'entrée et des entrées pour le solveur SAT sont en temps constant.
+
+4. **Solveur SAT (Varie) :** La complexité dépend du solveur SAT utilisé. Le temps d'exécution du solveur SAT peut varier en fonction de la taille et de la complexité du problème, mais il est généralement de l'ordre de O(2^n) dans le pire cas.
+
+5. **Traduction de la Solution (O(n)) :** La traduction de la solution SAT en une liste de couleurs pour les sommets est linéaire par rapport au nombre de sommets.
+
+La complexité globale du programme dépend principalement de la complexité du solveur SAT, ce qui peut varier considérablement d'un problème à l'autre. Dans le pire cas, la complexité totale serait dominée par le solveur SAT, ce qui est exponentiel. Cependant, dans la pratique, le temps d'exécution dépendra de la taille et de la structure du graphe.
+
+
+# Fonction get_independent_set
+
+**Description du Problème :**
+
+Le problème de l'ensemble indépendant consiste à trouver un ensemble de sommets dans un graphe tel que ces sommets ne soient pas reliés par une arête. Plus précisément, un ensemble indépendant de taille donnée consiste à sélectionner un certain nombre de sommets du graphe de telle manière que, pour tout sommet sélectionné, aucun de ses voisins ne soit sélectionné.
+
+**Exemple :**
+
+Considérons un graphe avec les sommets {A, B, C, D} et les arêtes {(A, B), (A, C), (B, C), (C, D)}. Pour un ensemble indépendant de taille 2, une solution possible serait {A, D} car ni A ni D ne sont voisins, formant ainsi un ensemble indépendant de taille 2.
+
+**Analyse de la Complexité Temporelle :**
+
+1. **Initialisation (O(1)) :** L'initialisation du nombre de sommets n est en temps constant.
+
+2. **Création des Clauses (O(n)) :** La création des clauses est linéaire par rapport au nombre de sommets. Les deux boucles imbriquées ajoutent des clauses pour chaque sommet et chaque paire de sommets voisins.
+
+3. **Affichage (O(1)) :** Les affichages de l'entrée pour le solveur SAT sont en temps constant.
+
+4. **Solveur SAT (Varie) :** La complexité dépend du solveur SAT utilisé. Le temps d'exécution du solveur SAT peut varier en fonction de la taille et de la complexité du problème, mais il est généralement de l'ordre de O(2^n) dans le pire cas.
+
+5. **Traduction de la Solution (O(n)) :** La traduction de la solution SAT en un ensemble de sommets est linéaire par rapport au nombre de sommets.
+
+La complexité totale du programme dépend principalement de la complexité du solveur SAT, qui peut varier considérablement d'un problème à l'autre. Dans le pire cas, la complexité totale serait dominée par le solveur SAT, ce qui est exponentiel. Cependant, dans la pratique, le temps d'exécution dépendra de la taille et de la structure du graphe.
+
+# Fonction solve_vertex_cover_3_clique
+
+**Description du Problème :**
+
+Le problème de couverture de sommets par des cliques de taille 3 consiste à trouver une coloration des sommets d'un graphe tel que chaque clique (ensemble de sommets complètement connectés) ait au plus 3 couleurs différentes, de manière à minimiser le nombre de couleurs utilisées.
+
+**Analyse de la Complexité Temporelle :**
+
+1. **Inversion du Graphe (O(n + m)) :** L'inversion du graphe implique de parcourir toutes les arêtes du graphe et de créer un nouveau graphe complémentaire. La complexité est linéaire par rapport au nombre de sommets (n) et d'arêtes (m).
+
+2. **Résolution de 3-Coloration (Varie) :** La résolution du problème de 3-coloration est effectuée en utilisant la fonction `solve_3_coloration`. La complexité dépend du solveur SAT utilisé, qui peut varier en fonction de la taille et de la complexité du problème, mais il est généralement de l'ordre de O(2^n) dans le pire cas.
+
+3. **Traduction de la Solution (O(n)) :** La traduction de la solution SAT en une coloration pour le graphe original est linéaire par rapport au nombre de sommets.
+
+4. **Application de la Coloration (O(n)) :** L'application de la coloration au graphe original est également linéaire par rapport au nombre de sommets.
+
+La complexité totale du programme dépend principalement de la complexité du solveur SAT, qui peut varier considérablement d'un problème à l'autre. Dans le pire cas, la complexité totale serait dominée par le solveur SAT, ce qui est exponentiel. Cependant, dans la pratique, le temps d'exécution dépendra de la taille et de la structure du graphe.
+
+--- 
+
+ ⛔️ Important, nous n'avons pas réussi à mettre en place le dernier algorithme 3Col est NP-complet.
+
+--- 
+
