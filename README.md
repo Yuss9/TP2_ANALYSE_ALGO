@@ -33,8 +33,8 @@ Nous aurions aimé implémenter l'algorithme Lawler pour résoudre le problème 
 
 ## Tech Stack
 
-**algo:** Python, 
+**algo:** Python
 
 
-![Logo](https://physique-et-maths.fr/enseignement/premiere_generale/mathematiques/python_algorithme/python_algorithme.png)
+![Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/2048px-Python.svg.png)
 
