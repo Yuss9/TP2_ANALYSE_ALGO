@@ -148,8 +148,9 @@ def translate_solution(sol, n):
 
 
 #########################################################################
+# solve_3_coloration main
 
-if __name__ == '__main__':
+""" if __name__ == '__main__':
     if len(sys.argv) < 3:
         print("usage : python3 solveClique.py <filename> <size_clique> [-v]")
         exit(1)
@@ -165,9 +166,8 @@ if __name__ == '__main__':
     else:
         verbose = False
 
-    """
-    Récupérer le graphe stocké dans le fichier <filename>
-    """
+    # Récupérer le graphe stocké dans le fichier <filename>
+
     g = []
     g = Graph(filename)
     #     solution = solveClique(g, size, verbose)
@@ -178,3 +178,4 @@ if __name__ == '__main__':
         print(solution)
     else:
         print("Pas de clique de taille " + str(size) + ".")
+ """
