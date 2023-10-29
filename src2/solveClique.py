@@ -218,6 +218,28 @@ def get_independent_set(graph, size, is_verbose):
     return solution
 
 
+def solve_vertex_cover_3_clique(graph):
+    """
+    Résout le problème de couverture de sommets par des cliques de taille 3.
+
+    :param graph: Le graphe d'entrée
+    :return: La coloration des sommets résultant de la couverture de cliques de taille 3
+    """
+    # Inverser le graphe pour trouver la couverture
+    inverted_graph = graph.complement_graph()
+
+    # Résoudre le problème de coloration 3-coloration
+    solution = solve_3_coloration(inverted_graph, False)
+
+    # Traduire la solution en une coloration pour le graphe original
+    colors = translate_solution(solution, len(inverted_graph.vertex))
+
+    # Appliquer la coloration au graphe original
+    graph.assign_all_color_to_vertex(colors)
+
+    return graph.get_colors()
+
+
 #########################################################################
 # first main
 
@@ -254,7 +276,7 @@ def get_independent_set(graph, size, is_verbose):
 ###########################################################################
 # second main
 
-if len(sys.argv) < 2:
+""" if len(sys.argv) < 2:
     print("usage : python3 solveClique.py <filename> [-v]")
     exit(1)
 filename = sys.argv[1]
@@ -281,4 +303,27 @@ if solution:
     print("######################################################")
     print(is_valid_3_coloration(g))
 else:
-    print("Pas de coloration.")
+    print("Pas de coloration.") """
+
+###########################################################################
+
+
+if len(sys.argv) < 3:
+    print("usage : python3 solveClique.py <filename> <size_clique> [-v]")
+    exit(1)
+filename = sys.argv[1]
+try:
+    size = int(sys.argv[2])
+except:
+    print("Le deuxième argument <size_clique> doit être un entier.")
+    exit(1)
+if len(sys.argv) > 3 and (sys.argv[3] == "-v"
+                          or sys.argv[3] == "--verbose"):
+    verbose = True
+else:
+    verbose = False
+
+g = Graph(filename)
+solution = solve_vertex_cover_3_clique(g)
+
+print(solution)
